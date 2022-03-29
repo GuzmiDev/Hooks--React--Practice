@@ -1,11 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const useFetch = (url) => {
+  const isShowed = useRef(true);
+
   const [state, setState] = useState({
     data: null,
     loading: true,
     error: null,
   });
+
+  useEffect(() => {
+    return () => {
+      isShowed.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     setState({
@@ -17,11 +25,13 @@ export const useFetch = (url) => {
     fetch(url)
       .then((resp) => resp.json())
       .then((data) => {
-        setState({
-          loading: false,
-          error: null,
-          data,
-        });
+        if (isShowed) {
+          setState({
+            loading: false,
+            error: null,
+            data,
+          });
+        }
       });
   }, [url]);
 
