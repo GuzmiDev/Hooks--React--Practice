@@ -9,7 +9,7 @@ const initialState = [
 const todoReducer = (state = initialState, action) => {
   switch (action.type) {
     case "agregar":
-      return (state = [...state, action.payload]);
+      return [...state, action.payload];
     default:
       return state;
   }
