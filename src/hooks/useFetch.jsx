@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 export const useFetch = (url) => {
-  const isShowed = useRef(true);
+  const isMounted = useRef(true);
 
   const [state, setState] = useState({
     data: null,
@@ -11,7 +11,7 @@ export const useFetch = (url) => {
 
   useEffect(() => {
     return () => {
-      isShowed.current = false;
+      isMounted.current = false;
     };
   }, []);
 
@@ -25,13 +25,20 @@ export const useFetch = (url) => {
     fetch(url)
       .then((resp) => resp.json())
       .then((data) => {
-        if (isShowed) {
+        if (isMounted.current) {
           setState({
             loading: false,
             error: null,
             data,
           });
         }
+      })
+      .catch(() => {
+        setState({
+          data: null,
+          loading: false,
+          error: "500: No se pudo cargar la info",
+        });
       });
   }, [url]);
 
