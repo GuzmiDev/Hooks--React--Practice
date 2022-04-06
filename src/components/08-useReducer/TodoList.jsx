@@ -4,14 +4,12 @@ import { TodoItem } from "./TodoItem";
 export const TodoList = ({ todos, handleDelete, handleToggleTodo }) => {
   return (
     <ul className="list-group list-group-flush">
-      {todos.map(({ id, desc, done }, i) => (
+      {todos.map((todo, i) => (
         <TodoItem
-          desc={desc}
-          done={done}
+          todo={todo}
           handleDelete={handleDelete}
           handleToggleTodo={handleToggleTodo}
-          key={id}
-          id={id}
+          key={todo.id}
           index={i}
         />
       ))}

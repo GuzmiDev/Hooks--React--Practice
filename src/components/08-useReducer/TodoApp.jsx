@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer } from "react";
 import { todoReducer } from "./todoReducer";
-import { useForm } from "../../hooks/useForm";
 import { TodoList } from "./TodoList";
 import "./styles.css";
 import { TodoAdd } from "./TodoAdd";
@@ -24,21 +23,17 @@ export const TodoApp = () => {
   };
 
   const handleDelete = (todoId) => {
-    const action = {
+    dispatch({
       type: "delete",
       payload: todoId,
-    };
-
-    dispatch(action);
+    });
   };
 
   const handleToggleTodo = (todoId) => {
-    const action = {
+    dispatch({
       type: "done",
       payload: todoId,
-    };
-
-    dispatch(action);
+    });
   };
 
   return (
